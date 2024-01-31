@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <div id="container-aplicativo">
+    <img src="images/dom-casmurro.jpeg" alt="">
+
+    <div id="informacoes-faixa">
+    <p id="capitulo">Capitulo 1</p>
+    <p>Machado de Assis</p></div>
+
+    <audio id="audio-capitulo" src="books/dom-casmurro/1.mp3"></audio>
+    
+    <div id="container-botoes"> 
+    <button id="anterior"  class="bi bi-sign-turn-slight-left"></button>
+    <button id="play-pause"  class="bi bi-play-circle-fill"></button>
+    <button id="proxima" class="bi bi-sign-turn-slight-right"></button>
+</div>
+   
+</div>
+    <script>
+const botaoPlaypause = document.getElementById('play-pause');
+const audio =document.getElementById('audio-capitulo');
+const proximo = document.getElementById('proxima');
+const anterior=document.getElementById('anterior');
+const capitulo=document.getElementById('capitulo')
+const nuemeroscapitulos=10;
+let tatocando =0;
+let capituloatual =1;
+
+function tocarfaixa(){
+    audio.play();
+    botaoPlaypause.classList.remove('bi-play-circle-fill');
+    botaoPlaypause.classList.add('bi-pause-circle');
+}
+
+function pausarfaixa(){
+    audio.pause();
+    botaoPlaypause.classList.remove('bi-pause-circle');
+    botaoPlaypause.classList.add('bi-play-circle-fill');
+}
+function tocaroupausar(){
+  if( tatocando===0){
+    tocarfaixa();
+    tatocando=1;
+  }else{
+    pausarfaixa();
+    tatocando=0;
+  } 
+}
+function trocarnomefaixa(){
+ capitulo.innerText='Capitulo' + capituloatual;  
+}
+
+function proximafaixa() {
+    if(capituloatual===nuemeroscapitulos){
+        capituloatual=1;
+    } else {
+     capituloatual=capituloatual+1
+    }
+    audio.src='books/dom-casmurro/' + capituloatual +'.mp3';
+tocarfaixa();
+tatocando=1;
+trocarnomefaixa();
+}
+
+function voltarfaixa() {
+    if(capituloatual===1){
+        capituloatual=nuemeroscapitulos;
+    } else {
+     capituloatual=capituloatual-1
+    }
+    audio.src='books/dom-casmurro/' + capituloatual +'.mp3';
+tocarfaixa();
+tatocando=1;
+trocarnomefaixa();
+}
+
+botaoPlaypause.addEventListener('click', tocarfaixa);
+proximo.addEventListener('click', proximafaixa);
+anterior.addEventListener('click',voltarfaixa)
+    </script>
+</body>
+</html>
